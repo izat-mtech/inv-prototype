@@ -1,11 +1,30 @@
 # Fish Inventory Prototype
 
-A React and TypeScript demo of receipt submission, supervisor review, stock posting and batch history. The demo starts with one fictional pending receipt for 100 kg. Use the role switch to review it as a Supervisor. Demo changes stay in the current browser. Reset demo restores the sample receipt.
+This browser prototype uses fictional records. The profile switch at the top left changes between Store Officer and Supervisor. Select **Reset demo data** from the same menu to restore the sample records. Changes stay in the current browser.
 
-## Publish to GitHub Pages
+| Tab | Demonstration |
+| --- | --- |
+| Dashboard | Stock and review totals, a seven-day receipt/issue chart, stock status breakdown and recent activity |
+| Inventory | Searchable stock by batch and site, with on-hand, available, held, spoiled and in-transit quantities |
+| Stock Receive | Create a receipt, then approve and post it as Supervisor |
+| Stock Issue | Record the recipient and purpose, approve the issue, then confirm handover |
+| Stock Transfer | Review transfers, dispatch and confirm full or partial arrival. The Adjustments view records and reviews count corrections |
+| Spoilage | Place stock on hold for review, confirm spoilage, and separately approve and confirm disposal |
+| Reports | Inventory, Movement, Spoilage and Audit reports, with CSV export and browser printing to PDF |
 
-1. Create an empty public GitHub repository named `fish-inventory-prototype`. Leave the README, gitignore and license unchecked. The repository should contain only fictional demo data and source intended to be public.
-2. Open this extracted folder in VS Code. In the terminal, initialise Git and push the source. Replace `YOUR-USERNAME` with your GitHub username.
+In a transaction tab, select a reference to review or act on it. Try the pending 100 kg receipt in **Stock Receive**. Approving it as Supervisor adds the batch to Inventory and updates the dashboard and reports. Returning a record lets the Store Officer correct it and resubmit. The demo also includes a partially received transfer.
+
+## Update an existing GitHub Pages repo
+
+1. Copy the contents of this folder into your existing GitHub repo checkout, including `.github/workflows/deploy.yml`. Keep the repo's `.git` directory.
+2. From that checkout, commit and push to `main`.
+3. Verify **Settings → Pages → Source** is set to **GitHub Actions**.
+4. Check **Actions → Deploy to GitHub Pages** for a successful run. If necessary, enable the workflow and run it manually on `main`. The published URL is shown under **Settings → Pages**.
+
+## Start a new GitHub Pages repo
+
+1. Create an empty GitHub repository called `fish-inventory-prototype`. For the free public Pages setup, choose Public and leave README, gitignore and license unchecked. Commit only fictional records and source intended to be public.
+2. Open the extracted project folder in VS Code. Run the following in its terminal, replacing `YOUR-USERNAME` with your GitHub username.
 
    ```powershell
    git init -b main
@@ -15,19 +34,18 @@ A React and TypeScript demo of receipt submission, supervisor review, stock post
    git push -u origin main
    ```
 
-3. In the GitHub repository, open **Settings → Pages**. Under **Build and deployment**, set **Source** to **GitHub Actions**.
-4. Open **Actions → Deploy to GitHub Pages → Run workflow**, select `main` and run it. The initial push can trigger the workflow before Pages is enabled, so run it again after selecting the source if needed.
-5. After the workflow succeeds, open **Settings → Pages** to find the published URL. Open it in a private browser window to check anonymous access. Try approving the 100 kg receipt and verify the inventory balance and batch history.
+3. Set **Settings → Pages → Source** to **GitHub Actions**, then select **Actions → Deploy to GitHub Pages → Run workflow** on `main`. The initial push can trigger a run before Pages is configured. If it does, run it again after selecting the source.
 
-Future pushes to `main` rebuild and deploy to the same Pages site. Vite uses relative asset paths so the build works under a repository subfolder. Navigation uses URL fragments, which keep receipt links working when reloaded from GitHub Pages.
+The Vite build uses relative asset URLs and hash navigation for repository subfolders. Pushes to `main` update the same Pages URL when the workflow is enabled.
 
-## Develop in VS Code
+## Run in VS Code
 
-Use Node.js 24 LTS. Open the project folder and run:
+Use Node.js 24 LTS.
 
 ```powershell
 npm ci
 npm run dev
+npm run build
 ```
 
-Use `npm run build` to check the TypeScript and generate `dist/`. On GitHub, the workflow installs dependencies and builds the site. The role selector simulates permissions for the demonstration. This static app has no shared database.
+The role switch simulates access for a walkthrough. This static demo uses browser storage for its transaction history.
